@@ -20,60 +20,35 @@ app.get('/', (request, response) => {
 });
 
 app.get('/form', async(req, res) => {
-    const result = await pool.query('SELECT * FROM formulario')
+    const result = await pool.query('SELECT * FROM form')
     res.json(result);
 });
 
 app.post('/add-user', async(req, res) => {
-    const result = await pool.query('INSERT INTO login SET ? ')
-    res.json(result);})
-    
+    await pool.query('INSERT INTO login SET ? ')
+    res.send("User Added Successfully");})
+        
 app.post('/send-form', async(request, response) => {
-    await pool.query('INSERT INTO formulario SET ?', request.body)
+    await pool.query('INSERT INTO form SET ?', request.body)
         response.send('information registered Successfully');})
+
+app.post('/login', async(request, response) => {
     
-        // app.post('/inicio-sesion', async(request, response) => {
-    
-    //     const {user, password} = request.body
-    //     const values = [user, password]
-    //     await pool.query('SELECT * FROM login WHERE user =? AND password =?', values, (error, result) => {
-        //         if (error) {
-            //             response.status(500).send(error)
-            //         } else {
-                //             if (result.length > 0) {
-                    //                 response.status(200).send({
-                        //                 })
-    
-//             } else {
-    //                 response.status(401).send('Usuario o contraseña incorrectos')
-    //             }
-    //         }
-    //     })
-    // })
-    
-            
-            // app.put('/actualizar/:id', async(request, response) => {
-                //     const id = request.params.id;
-                //     await pool.query('UPDATE formulario SET ? WHERE idformulario = ?', [request.body, id], (error, result) => {
-                    //         if (error) throw error;
-                    //         response.send('Updated Successfully');
-                    //     });
-                    // });
+    const {user, password} = request.body
+    const values = [user, password]
+        await pool.query('SELECT * FROM login WHERE user =? AND password =?', values)
+            response.status(500).send(error)
+})
+
+app.put('/update-row/:id', async(request, response) => {
+    const id = request.params.id;
+    await pool.query('UPDATE form SET? WHERE idform = ?', [request.body, id])
+    response.send('Updated Successfully')
+})
                     
-                    // app.delete('/eliminar-fila/:idformulario', async(req, res) => {
-                        //     const id = req.params
-//     const sql = `DELETE FROM formulario WHERE idformulario = ${id.idformulario}`
-
-//     await pool.query(sql, error => {
-    //       if (error) throw error
-    
-//       res.send('Deleted Successfully')
-//     })
-// })
-
-app.delete('/delete-row/:idformulario',async(req,res) => {
+app.delete('/delete-row/:idform',async(req,res) => {
     const id = req.params
-    await pool.query(`DELETE FROM formulario WHERE idformulario = ${id.idformulario}`)
+    await pool.query(`DELETE FROM form WHERE idform = ${id.idform}`)
         res.send('Deleted Successfully')
 
 }) 
