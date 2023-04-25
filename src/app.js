@@ -20,7 +20,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/form', async(req, res) => {
-    const result = await pool.query('SELECT * FROM form')
+    const [result] = await pool.query('SELECT * FROM form')
     res.json(result);
 });
 
