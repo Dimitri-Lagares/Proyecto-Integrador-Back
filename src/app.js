@@ -1,14 +1,19 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from 'cors';
+// import cors from 'cors';
 import { pool } from './db.js'
 import { PORT } from './config.js';
 
 const app = express();
-const whiteList = [ 'http://localhost:5173' ]
+// const whiteList = [ 'http://localhost:5173' ]
 
 app.use(bodyParser.json());
-app.use(cors({origin: whiteList}));
+// app.use(cors({origin: whiteList}));
+
+header('Access-Control-Allow-Origin', '*');
+header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+header('Allow', 'GET, POST, PUT, DELETE');
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
