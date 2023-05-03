@@ -5,10 +5,8 @@ import { pool } from './db.js'
 import { PORT } from './config.js';
 
 const app = express();
-// const whiteList = [ 'http://localhost:5173' ]
 
 app.use(bodyParser.json());
-// app.use(cors({origin: whiteList}));
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
