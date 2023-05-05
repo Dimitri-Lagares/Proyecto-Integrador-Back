@@ -35,8 +35,8 @@ app.post('/send-form', async(req, res) => {
         solicitud: req.body.solicitud,
         comentario: req.body.comentario
     };
-    await pool.query('INSERT INTO form SET ?', formObj)
-        res.send('information registered Successfully');
+    await pool.query('INSERT INTO form SET ? ', formObj)
+    res.send('information registered Successfully');
 });
 
 app.post('/login', async(req, res) => {
