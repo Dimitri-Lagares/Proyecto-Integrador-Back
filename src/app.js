@@ -26,11 +26,12 @@ app.post('/send-form', async(request, response) => {
     await pool.query('INSERT INTO form SET ?', request.body)
         response.send('information registered Successfully');})
 
-app.post('/login', async(request, response) => {
-    const {user, password} = request.body
+app.post('/login', async(req, res) => {
+    const {user, password} = req.body
     const values = [user, password]
-        await pool.query('SELECT * FROM login WHERE user =? AND password =?', values)
-            response.status(500).send(error)
+    const sql = 'SELECT * FROM login WHERE user = ? AND password = ?';
+        await pool.query(sql, values)
+            res.status(200)
 })
 
 app.put('/update-row/:id', async(request, response) => {
