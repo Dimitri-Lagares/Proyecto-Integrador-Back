@@ -19,7 +19,11 @@ app.get('/form', async(req, res) => {
 });
 
 app.post('/add-user', async(req, res) => {
-    await pool.query('INSERT INTO login SET ? ')
+    const userObj = {
+        user: req.body.user,
+        password: req.body.password
+    };
+    await pool.query('INSERT INTO login SET ? ', userObj)
     res.send("User Added Successfully");})
         
 app.post('/send-form', async(request, response) => {
