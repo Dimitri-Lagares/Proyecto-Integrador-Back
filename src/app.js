@@ -42,7 +42,7 @@ app.post('/send-form', async(req, res) => {
 app.post('/login', async(req, res) => {
     const {user, password} = req.body
     const values = [user, password]
-    const sql = 'SELECT * FROM login WHERE user = ? AND password = ?';
+    const sql = 'SELECT * FROM login WHERE user = ? AND password = ? ';
         await pool.query(sql, values)
             res.status(200)
 });
