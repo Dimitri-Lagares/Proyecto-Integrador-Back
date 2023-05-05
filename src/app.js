@@ -27,7 +27,14 @@ app.post('/add-user', async(req, res) => {
     res.send("User Added Successfully");})
         
 app.post('/send-form', async(request, response) => {
-    await pool.query('INSERT INTO form SET ?', request.body)
+    const formObj = {
+        nombre: req.body.nombre,
+        correo: req.body.correo,
+        telefono: req.body.telefono,
+        solicitud: req.body.solicitud,
+        comentario: req.body.comentario
+    };
+    await pool.query('INSERT INTO form SET ?', formObj)
         response.send('information registered Successfully');})
 
 app.post('/login', async(req, res) => {
