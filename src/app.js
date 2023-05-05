@@ -6,15 +6,8 @@ import { PORT } from './config.js';
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
-
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Allow', 'GET, POST, PUT, DELETE');
-    next();
-  });
 
 app.get('/', (request, response) => {
     response.send('App Running')
@@ -34,7 +27,6 @@ app.post('/send-form', async(request, response) => {
         response.send('information registered Successfully');})
 
 app.post('/login', async(request, response) => {
-    
     const {user, password} = request.body
     const values = [user, password]
         await pool.query('SELECT * FROM login WHERE user =? AND password =?', values)
